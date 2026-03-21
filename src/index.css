@@ -1,0 +1,29 @@
+@import "tailwindcss";
+@theme {
+  --color-primary: #10b981;
+  --color-secondary: #3b82f6;
+  --color-danger: #ef4444;
+  --color-warning: #f59e0b;
+
+  --color-background: #f9fafb;
+  --color-surface: #ffffff;
+  --color-border: #e5e7eb;
+
+  --color-black: #0F172A;
+  --color-grey: #64748B;
+
+  --radius-card: 0.75rem;
+
+  --shadow-card: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
+}
+@font-face {
+  font-family: "Inter";
+  src: url("./assets/fonts/InterVariable.woff2") format("woff2");
+  font-weight: 100 900;
+  font-display: swap;
+}
+/* Add your custom styles here */
+
+body {
+  font-family: "Inter", system-ui, sans-serif;
+}
