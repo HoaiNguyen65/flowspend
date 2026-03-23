@@ -4,6 +4,7 @@ import { validateForm } from "../utils/validators";
 export default function useForm(initialValues, options) {
   const [values, setValues] = useState(initialValues);
   const [errors, setErrors] = useState({});
+  const [isLoading, setIsLoading] = useState(false);
 
   const { debounces, schemaName } = options;
 
@@ -66,7 +67,7 @@ export default function useForm(initialValues, options) {
         : val;
     };
 
-    Object.keys(values).forEach((key) => {     
+    Object.keys(values).forEach((key) => {
       newErrors[key] = validateForm(key, getDrawValue(values[key]), schemaName);
     });
 
@@ -84,6 +85,20 @@ export default function useForm(initialValues, options) {
     }));
   };
 
+  const handleSubmit = (onSubmit) => async (e) => {
+    e.preventDefault();
+    if (!validateAll()) return;
+
+    try {
+      setIsLoading(true);
+      await onSubmit();      
+    } catch (error) {
+      throw error instanceof Error ? error : new Error(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   useEffect(() => {
     return () => {
       Object.keys(timeRefs.current).forEach(clearTimeout);
@@ -93,8 +108,10 @@ export default function useForm(initialValues, options) {
   return {
     values,
     errors,
+    isLoading,
     handleChange,
     validateAll,
     toggleShowField,
+    handleSubmit
   };
 }

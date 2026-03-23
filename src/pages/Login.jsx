@@ -4,38 +4,42 @@ import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../services/firebase/firebaseAuth";
 import { getAuthErrorMessage } from "../utils/authErrorMessage";
+import Loader from "../components/Loader";
 function Login() {
-  const { values, errors, handleChange, validateAll, toggleShowField } =
-    useForm(
-      {
-        email: "",
-        password: {
-          value: "",
-          show: false,
-        },
+  const {
+    values,
+    errors,
+    isLoading,
+    handleChange,
+    toggleShowField,
+    handleSubmit,
+  } = useForm(
+    {
+      email: "",
+      password: {
+        value: "",
+        show: false,
       },
-      {
-        debounces: {
-          email: 500,
-          password: 800,
-        },
-        schemaName: "login",
+    },
+    {
+      debounces: {
+        email: 500,
+        password: 800,
       },
-    );
+      schemaName: "login",
+    },
+  );
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const onSubmit = async () => {
     try {
-      e.preventDefault();
-      if (!validateAll()) return;
       const userCredential = await signInWithEmailAndPassword(
         auth,
         values["email"],
         values["password"]["value"],
       );
-      console.log("userCredential: ", userCredential);
-      
+
       if (userCredential.user) {
         navigate("/dashboard", { replace: true });
       }
@@ -47,7 +51,8 @@ function Login() {
   };
 
   return (
-    <div className="grid min-h-screen place-items-center bg-[#F9FAFB]">
+    <div className="grid min-h-screen place-items-center bg-[#F9FAFB] relative">   
+        {isLoading && <Loader />}
       <div className="lg:shadow-card rounded-card grid w-full max-w-5xl overflow-hidden lg:grid-cols-2">
         {/* left */}
         <div className="hidden bg-[url('./assets/images/login/Background.png')] bg-cover bg-center lg:block lg:p-12">
@@ -75,7 +80,7 @@ function Login() {
               Enter your details to access your account
             </p>
           </div>
-          <form onSubmit={handleSubmit} className="mt-10" action="">
+          <form onSubmit={handleSubmit(onSubmit)} className="mt-10" action="">
             <div className="flex flex-col gap-2">
               <label
                 className="text-[0.875rem] font-semibold text-[#334155]"
@@ -141,7 +146,7 @@ function Login() {
               type="submit"
               className="bg-primary rounded-card w-full py-3 text-[1rem] font-bold text-white hover:cursor-pointer"
             >
-              Log in
+              Log In
             </button>
           </form>
           <div className="mt-8 flex items-center">

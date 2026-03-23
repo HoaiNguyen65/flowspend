@@ -6,42 +6,47 @@ import { STRENGTH_CONFIG } from "../constants/strengthConfig";
 import { useMemo } from "react";
 import { registerUser } from "../features/auth/authService";
 import { getAuthErrorMessage } from "../utils/authErrorMessage";
+import Loader from "../components/Loader";
 
 function Register() {
-  const { values, errors, handleChange, validateAll, toggleShowField } =
-    useForm(
-      {
-        name: "",
-        email: "",
-        password: {
-          value: "",
-          show: false,
-        },
-        terms: false,
+  const {
+    values,
+    errors,
+    isLoading,
+    handleChange,
+    toggleShowField,
+    handleSubmit,
+  } = useForm(
+    {
+      name: "",
+      email: "",
+      password: {
+        value: "",
+        show: false,
       },
-      {
-        debounces: {
-          email: 500,
-          password: 800,
-        },
-        schemaName: "register",
+      terms: false,
+    },
+    {
+      debounces: {
+        email: 500,
+        password: 800,
       },
-    );
+      schemaName: "register",
+    },
+  );
 
   const navigate = useNavigate();
 
-  const handleSubmit = async (e) => {
+  const onSubmit = async () => {
     try {
-      e.preventDefault();
-      if (!validateAll()) return;
       const userCredential = await registerUser(
         values["email"],
         values["password"]["value"],
         values["name"],
-      );      
+      );
 
       if (userCredential.accessToken) {
-        navigate("/login", {replace: true});
+        navigate("/login", { replace: true });
       }
     } catch (error) {
       const errorMessage = getAuthErrorMessage(error.code);
@@ -56,6 +61,7 @@ function Register() {
 
   return (
     <div className="flex min-h-screen items-center justify-center bg-slate-50 p-6 text-slate-900">
+      {isLoading && <Loader />}
       <div className="w-full max-w-md">
         <div className="flex items-center justify-center gap-3">
           <div className="bg-primary rounded-card w-fit p-2">
@@ -72,7 +78,7 @@ function Register() {
               Start managing your finances better today
             </p>
           </div>
-          <form onSubmit={handleSubmit}>
+          <form onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label
                 className="mb-1.5 block text-sm font-medium text-slate-700"
