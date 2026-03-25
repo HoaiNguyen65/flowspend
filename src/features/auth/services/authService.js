@@ -1,7 +1,7 @@
 import { doc, setDoc, addDoc, collection } from "firebase/firestore";
-import { db } from "../../services/firebase/fireStore";
+import { db } from "../../../services/firebase/fireStore";
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../services/firebase/firebaseAuth";
+import { auth } from "../../../services/firebase/firebaseAuth";
 
 export const registerUser = async (email, pass, name) => {
   try {

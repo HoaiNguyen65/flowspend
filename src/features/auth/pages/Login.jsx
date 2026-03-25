@@ -1,10 +1,10 @@
 import { Eye, EyeOff, Wallet } from "lucide-react";
-import useForm from "../hooks/useForm";
+import useForm from "../../../hooks/useForm";
 import { Link, useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../services/firebase/firebaseAuth";
-import { getAuthErrorMessage } from "../utils/authErrorMessage";
-import Loader from "../components/Loader";
+import { auth } from "../../../services/firebase/firebaseAuth";
+import { getAuthErrorMessage } from "../../../utils/authErrorMessage";
+import Loader from "../../../components/Loader";
 function Login() {
   const {
     values,
@@ -51,8 +51,8 @@ function Login() {
   };
 
   return (
-    <div className="grid min-h-screen place-items-center bg-[#F9FAFB] relative">   
-        {isLoading && <Loader />}
+    <div className="relative grid min-h-screen place-items-center bg-[#F9FAFB]">
+      {isLoading && <Loader />}
       <div className="lg:shadow-card rounded-card grid w-full max-w-5xl overflow-hidden lg:grid-cols-2">
         {/* left */}
         <div className="hidden bg-[url('./assets/images/login/Background.png')] bg-cover bg-center lg:block lg:p-12">

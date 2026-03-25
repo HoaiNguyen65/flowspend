@@ -1,12 +1,11 @@
 import { Eye, EyeOff, Wallet } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
-import useForm from "../hooks/useForm";
-import { getPasswordStrength } from "../utils/passwordStrength";
-import { STRENGTH_CONFIG } from "../constants/strengthConfig";
-import { useMemo } from "react";
-import { registerUser } from "../features/auth/authService";
-import { getAuthErrorMessage } from "../utils/authErrorMessage";
-import Loader from "../components/Loader";
+import useForm from "../../../hooks/useForm";
+import { getPasswordStrength } from "../../../utils/passwordStrength";
+import { STRENGTH_CONFIG } from "../../../constants/strengthConfig";
+import { registerUser } from "../services/authService";
+import { getAuthErrorMessage } from "../../../utils/authErrorMessage";
+import Loader from "../../../components/Loader";
 
 function Register() {
   const {
