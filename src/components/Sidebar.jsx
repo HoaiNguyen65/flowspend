@@ -1,10 +1,19 @@
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import logo from "../assets/images/logo.png";
-import { ChartBarStacked, Landmark, LayoutDashboard, ReceiptText } from "lucide-react";
+import {
+  ChartBarStacked,
+  Landmark,
+  LayoutDashboard,
+  ReceiptText,
+} from "lucide-react";
 
 const navItems = [
   { to: "/dashboard", label: "Dashboard", icon: <LayoutDashboard size={18} /> },
-  { to: "/transaction", label: "Transactions", icon: <ReceiptText size={18} /> },
+  {
+    to: "/transaction",
+    label: "Transactions",
+    icon: <ReceiptText size={18} />,
+  },
   { to: "/category", label: "Categories", icon: <ChartBarStacked size={18} /> },
   { to: "/budget", label: "Budget", icon: <Landmark size={18} /> },
 ];
@@ -25,15 +34,23 @@ function Sidebar() {
 
       <ul className="flex flex-col items-start justify-center p-4">
         {navItems.map((item) => (
-          <li className="hover:bg-primary rounded-card w-full p-2.5 text-[#475569] transition-colors delay-100 duration-200 hover:text-white">
-            <Link to={item.to}>
-              <div className="flex items-center gap-3">
-                {item.icon}
-                <p className="text-sm font-medium">{item.label}</p>
-              </div>
-            </Link>
+          <li className="w-full">
+            <NavLink to={item.to}>
+              {({ isActive }) => (
+                <div
+                  className={`flex items-center gap-3 ${
+                    isActive
+                      ? "bg-primary rounded-card w-full p-2.5 text-white"
+                      : "w-full p-2.5 text-[#475569] transition-colors delay-100 duration-200 hover:bg-slate-100"
+                  } `}
+                >
+                  {item.icon}
+                  <p className="text-sm font-medium">{item.label}</p>
+                </div>
+              )}
+            </NavLink>
           </li>
-        ))}       
+        ))}
       </ul>
     </div>
   );

@@ -1,5 +1,5 @@
 import { collection, addDoc } from "firebase/firestore";
-import { db } from "../../services/firebase/fireStore";
+import { db } from "../../../services/firebase/fireStore";
 
 export const createTransaction = async (data) => {
   try {
