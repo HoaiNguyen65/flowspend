@@ -1,10 +1,14 @@
+import { useState } from "react";
+import SearchInput from "../../../components/SearchInput";
 import MainLayout from "../../../layouts/MainLayout";
 
 function Transaction() {
+  const [search, setSearch] = useState("");  
+  
   return (
     <MainLayout labelHeader="Transactions">
       <div>
-        <h1>Dashboard</h1>        
+        <SearchInput value={search} placeholder={"Search transactions..."} onChange={setSearch} />        
       </div>
     </MainLayout>
   );

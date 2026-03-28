@@ -23,7 +23,31 @@
   font-display: swap;
 }
 /* Add your custom styles here */
-
 body {
   font-family: "Inter", system-ui, sans-serif;
+}
+
+/* Ẩn scrollbar mặc định nhưng vẫn scroll được */
+* {
+  scrollbar-width: thin;                    /* Firefox */
+  scrollbar-color: var(--color-border) transparent; /* Firefox */
+}
+
+/* Chrome, Safari, Edge */
+*::-webkit-scrollbar {
+  width: 6px;   /* scrollbar dọc */
+  height: 6px;  /* scrollbar ngang */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: var(--color-border);
+  border-radius: 999px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-grey);
 }
