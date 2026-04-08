@@ -18,10 +18,10 @@ const navItems = [
   { to: "/budget", label: "Budget", icon: <Landmark size={18} /> },
 ];
 
-function Sidebar({onClose}) {
+function Sidebar({ onClose }) {
   return (
     <div>
-      <div className="flex items-center justify-start md:justify-center gap-3 p-6">
+      <div className="flex items-center justify-start gap-3 p-6 md:justify-center">
         <div className="w-9 overflow-hidden">
           <img
             className="h-full w-full object-cover object-center"
@@ -34,7 +34,7 @@ function Sidebar({onClose}) {
 
       <ul className="flex flex-col items-start justify-center px-4 md:py-4">
         {navItems.map((item) => (
-          <li className="w-full">
+          <li key={item.to} className="w-full">
             <NavLink to={item.to} onClick={onClose}>
               {({ isActive }) => (
                 <div
